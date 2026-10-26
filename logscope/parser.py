@@ -32,16 +32,14 @@ def parse_line(line: str) -> LogRecord | None:
     timestamp_text = match.group("timestamp")
     try:
         if "T" in timestamp_text:
-            timestamp = datetime.strptime(timestamp_text, "%Y-%m-%dT%H:%M:%SZ").replace(
-                tzinfo=timezone.utc
-            )
+            timestamp = datetime.strptime(timestamp_text, "%Y-%m-%dT%H:%M:%SZ")
         else:
             timestamp = datetime.strptime(timestamp_text, "%Y-%m-%d %H:%M:%S")
     except ValueError:
         return None
 
     return LogRecord(
-        timestamp=timestamp,
+        timestamp=timestamp.replace(tzinfo=timezone.utc),
         level=match.group("level"),
         message=match.group("message"),
         raw_line=raw_line,
@@ -49,7 +47,7 @@ def parse_line(line: str) -> LogRecord | None:
 
 
 def iter_records(stream: TextIO, malformed_count: list[int]) -> Iterator[LogRecord]:
-    """Yield valid records from a stream and increment malformed_count for invalid lines."""
+    """Yield valid records and increment malformed_count for invalid lines."""
     for line in stream:
         record = parse_line(line)
         if record is None:
