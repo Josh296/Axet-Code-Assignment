@@ -1,0 +1,7 @@
+2026-10-01 09:00:00 INFO Application started
+2026-10-01 09:05:00 WARN Cache miss
+2026-10-01 09:10:00 ERROR Database connection refused
+malformed line without required fields
+2026-10-01T09:15:00Z ERROR Database connection refused
+2026-10-01T09:20:00Z ERROR Request timed out
+2026-10-01 09:25:00 INFO Application stopped
