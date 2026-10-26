@@ -1,0 +1,4 @@
+#!/usr/bin/env python3
+from gen_log import main
+
+raise SystemExit(main())
